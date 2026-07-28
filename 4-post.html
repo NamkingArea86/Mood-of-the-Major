@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>โพสต์อารมณ์ใหม่</title>
+<style>
+  * { box-sizing: border-box; font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif; }
+  body { margin: 0; background: #FBF8F1; padding: 60px 20px; display: flex; justify-content: center; }
+  .card { background: #FFFFFF; border-radius: 16px; padding: 24px; width: 400px; }
+  h1 { font-size: 15px; font-weight: 500; color: #1A1A1A; margin: 0 0 4px; }
+  .as-faculty { font-size: 11px; color: #8A8A82; margin: 0 0 16px; }
+  .mood-row { display: flex; gap: 8px; margin-bottom: 16px; }
+  .mood-btn { width: 44px; height: 44px; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 20px; background: #FFFFFF; }
+  .mood-btn.selected { border: 2px solid #EF9F27; background: #FAEEDA; }
+  textarea { width: 100%; height: 80px; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 8px; padding: 10px 12px; font-size: 14px; color: #1A1A1A; margin-bottom: 16px; resize: none; }
+  .btn-primary { width: 100%; height: 40px; background: #1A1A1A; color: #FFFFFF; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; }
+  .lock-note { text-align: center; font-size: 11px; color: #8A8A82; margin-top: 12px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>แชร์อารมณ์ของคุณ</h1>
+    <p class="as-faculty">โพสต์ในนาม: วิศวกรรมศาสตร์ (ดึงจากบัญชีของคุณอัตโนมัติ)</p>
+    <div class="mood-row">
+      <div class="mood-btn selected">😊</div>
+      <div class="mood-btn">😰</div>
+      <div class="mood-btn">😴</div>
+      <div class="mood-btn">😐</div>
+      <div class="mood-btn">😢</div>
+    </div>
+    <textarea placeholder="วันนี้เป็นยังไงบ้าง..."></textarea>
+    <button class="btn-primary">โพสต์แบบไม่ระบุตัวตน</button>
+    <p class="lock-note">🔒 ไม่มีใครเห็นชื่อคุณ เห็นแค่คณะ</p>
+  </div>
+</body>
+</html>

@@ -6,8 +6,18 @@
 <title>ดูโพสต์โดยรวม</title>
 <style>
   * { box-sizing: border-box; font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif; }
-  body { margin: 0; background: #FBF8F1; padding: 32px; }
-  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; padding: 14px; }
+  html, body { margin: 0; padding: 0; background: #FBF8F1; width: 100%; }
+
+  .navbar { width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; background: #FFFFFF; padding: 14px 28px; border-bottom: 1px solid #e7e7e7; }
+  .logo {display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 500;}
+  .logo span {font-size: 16px;}
+  .nav-menu {display: flex; gap: 12px; flex-wrap: wrap;}
+  .nav-link { text-decoration: none; color: #555; padding: 8px 18px; border-radius: 25px; transition:.2s;}
+  .nav-link:hover {background: #f5f1e8; border-color: #f5f1e8;}
+  .nav-link.active {background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A;}
+
+  .page-content { padding: 32px; }
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
   select { height: 32px; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 8px; padding: 0 10px; font-size: 12px; background: #FFFFFF; color: #1A1A1A; }
   .btn-post { margin-left: auto; height: 32px; background: #1A1A1A; color: #FFFFFF; border: none; border-radius: 8px; font-size: 12px; padding: 0 14px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
@@ -20,28 +30,20 @@
   .mood-tired { border-left: 3px solid #B4B2A9; }
   .mood-neutral { border-left: 3px solid #888780; }
   .mood-sad { border-left: 3px solid #378ADD; }
-  .navbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; background: #FFFFFF; padding: 14px 28px; border-bottom: 1px solid #e7e7e7; margin: -32px -32px 24px -32px; }
-  .logo {display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 500;}
-  .logo span {font-size: 16px;}
-  .nav-menu {display: flex; gap: 12px; flex-wrap: wrap;}
-  .nav-link { text-decoration: none; color: #555; padding: 8px 18px; border-radius: 25px; transition:.2s;}
-  .nav-link:hover {background: #f5f1e8; border-color: #f5f1e8;}
-  .nav-link.active {background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A;}
 
   /* ===== Responsive ===== */
   @media (max-width: 768px) {
-    body { padding: 20px; }
-    .navbar { padding: 12px 20px; margin: -20px -20px 20px -20px; }
+    .navbar { padding: 12px 20px; }
     .logo { font-size: 22px; }
     .logo span { font-size: 14px; }
     .nav-link { padding: 6px 12px; font-size: 12px; }
-    .toolbar { padding: 0; }
+    .page-content { padding: 20px; }
   }
   @media (max-width: 480px) {
-    body { padding: 14px; }
-    .navbar { padding: 10px 14px; margin: -14px -14px 16px -14px; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .navbar { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 14px; }
     .nav-menu { width: 100%; justify-content: space-between; gap: 4px; }
     .nav-link { padding: 6px 8px; font-size: 11px; }
+    .page-content { padding: 14px; }
     .toolbar { flex-direction: column; }
     .btn-post { margin-left: 0; width: 100%; height: 38px; }
     select { width: 100%; }
@@ -54,7 +56,6 @@
     <div class="logo">
         🌻 <span>Mood of the Major</span>
     </div>
-
     <div class="nav-menu">
         <a href="3-feed.html" class="nav-link active">Feed</a>
         <a href="4-post.html" class="nav-link">Post</a>
@@ -62,37 +63,40 @@
         <a href="6-profile.html" class="nav-link">Profile</a>
     </div>
   </nav>
-  <div class="toolbar">
-    <select><option>อารมณ์: ทั้งหมด</option></select>
-    <select><option>วันที่: ทั้งหมด</option></select>
-    <select><option>คณะ: ทั้งหมด</option></select>
-    <button class="btn-post">+ โพสต์อารมณ์</button>
-  </div>
-  <div class="grid">
-    <div class="card mood-happy">
-      <p class="meta">วิศวกรรมศาสตร์ · 2 ชม.</p>
-      <p class="emoji">😊</p>
-      <p class="text">สอบผ่านแล้ว โล่งอก!</p>
+
+  <div class="page-content">
+    <div class="toolbar">
+      <select><option>อารมณ์: ทั้งหมด</option></select>
+      <select><option>วันที่: ทั้งหมด</option></select>
+      <select><option>คณะ: ทั้งหมด</option></select>
+      <button class="btn-post">+ โพสต์อารมณ์</button>
     </div>
-    <div class="card mood-stressed">
-      <p class="meta">ศิลปศาสตร์ · 4 ชม.</p>
-      <p class="emoji">😰</p>
-      <p class="text">งานส่งพรุ่งนี้ยังไม่เสร็จเลย</p>
-    </div>
-    <div class="card mood-sad">
-      <p class="meta">นิเทศศาสตร์ · 6 ชม.</p>
-      <p class="emoji">😢</p>
-      <p class="text">คิดถึงบ้านจัง</p>
-    </div>
-    <div class="card mood-neutral">
-      <p class="meta">วิศวกรรมศาสตร์ · 1 วัน</p>
-      <p class="emoji">😐</p>
-      <p class="text">วันนี้เรื่อยๆ ไม่มีอะไรพิเศษ</p>
-    </div>
-    <div class="card mood-tired">
-      <p class="meta">บริหารธุรกิจ · 1 วัน</p>
-      <p class="emoji">😴</p>
-      <p class="text">นอนไม่พอเลยสัปดาห์นี้</p>
+    <div class="grid">
+      <div class="card mood-happy">
+        <p class="meta">วิศวกรรมศาสตร์ · 2 ชม.</p>
+        <p class="emoji">😊</p>
+        <p class="text">สอบผ่านแล้ว โล่งอก!</p>
+      </div>
+      <div class="card mood-stressed">
+        <p class="meta">ศิลปศาสตร์ · 4 ชม.</p>
+        <p class="emoji">😰</p>
+        <p class="text">งานส่งพรุ่งนี้ยังไม่เสร็จเลย</p>
+      </div>
+      <div class="card mood-sad">
+        <p class="meta">นิเทศศาสตร์ · 6 ชม.</p>
+        <p class="emoji">😢</p>
+        <p class="text">คิดถึงบ้านจัง</p>
+      </div>
+      <div class="card mood-neutral">
+        <p class="meta">วิศวกรรมศาสตร์ · 1 วัน</p>
+        <p class="emoji">😐</p>
+        <p class="text">วันนี้เรื่อยๆ ไม่มีอะไรพิเศษ</p>
+      </div>
+      <div class="card mood-tired">
+        <p class="meta">บริหารธุรกิจ · 1 วัน</p>
+        <p class="emoji">😴</p>
+        <p class="text">นอนไม่พอเลยสัปดาห์นี้</p>
+      </div>
     </div>
   </div>
 </body>

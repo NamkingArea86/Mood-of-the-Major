@@ -6,7 +6,17 @@
 <title>Admin panel</title>
 <style>
   * { box-sizing: border-box; font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif; }
-  body { margin: 0; background: #FBF8F1; padding: 32px; }
+  html, body { margin: 0; padding: 0; background: #FBF8F1; width: 100%; }
+
+  .navbar { width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; background: #FFFFFF; padding: 14px 28px; border-bottom: 1px solid #e7e7e7; }
+  .logo {display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 500;}
+  .logo span {font-size: 16px;}
+  .nav-menu {display: flex; gap: 12px; flex-wrap: wrap;}
+  .nav-link { text-decoration: none; color: #555; padding: 8px 18px; border-radius: 25px; transition:.2s;}
+  .nav-link:hover {background: #f5f1e8; border-color: #f5f1e8;}
+  .nav-link.active {background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A;}
+
+  .page-content { padding: 32px; }
   .container {display: flex;justify-content: center; align-items: center; padding: 60px 40px; width: 100%;}
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 90%; max-width: 900px; }
   .card { background: #FFFFFF; border-radius: 16px; padding: 30px; }
@@ -19,30 +29,24 @@
   .promote-row { background: #F5F1E8; border-radius: 10px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
   .promote-row p { font-size: 12px; color: #1A1A1A; margin: 0; }
   .btn-outline { font-size: 11px; border: 0.5px solid rgba(0,0,0,0.15); background: transparent; border-radius: 6px; height: 26px; padding: 0 10px; }
-  .navbar {width:100% ; display: flex; flex-wrap: wrap; justify-content: space-between;align-items: center; background: #FFFFFF; padding: 14px 28px; border-bottom: 1px solid #e7e7e7; margin: -32px -32px 0 -32px; }
-  .logo {display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 500;}
-  .logo span {font-size: 16px;}
-  .nav-menu {display: flex; gap: 12px; flex-wrap: wrap;}
-  .nav-link { text-decoration: none; color: #555; padding: 8px 18px; border-radius: 25px; transition:.2s;}
-  .nav-link:hover {background: #f5f1e8; border-color: #f5f1e8;}
-  .nav-link.active {background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A;}
 
   /* ===== Responsive ===== */
   @media (max-width: 900px) {
     .grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
-    body { padding: 20px; }
-    .navbar { padding: 12px 20px; margin: -20px -20px 0 -20px; }
+    .navbar { padding: 12px 20px; }
     .logo { font-size: 22px; }
     .logo span { font-size: 14px; }
     .nav-link { padding: 6px 12px; font-size: 12px; }
+    .page-content { padding: 20px; }
     .container { padding: 30px 16px; }
   }
   @media (max-width: 480px) {
-    .navbar { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 14px; margin: -14px -14px 0 -14px; }
+    .navbar { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 14px; }
     .nav-menu { width: 100%; justify-content: space-between; gap: 4px; }
     .nav-link { padding: 6px 8px; font-size: 11px; }
+    .page-content { padding: 14px; }
     .container { padding: 20px 10px; }
     .card { padding: 20px; }
   }
@@ -61,24 +65,27 @@
         <a href="6-profile.html" class="nav-link">Profile</a>
     </div>
   </nav>
-  <div class="container">
-    <div class="grid">
-      <div class="card">
-        <h2>โพสต์ที่ถูกรายงาน</h2>
-        <div class="report-row">
-          <div>
-            <p class="meta">นิเทศศาสตร์ · 😢</p>
-            <p class="text">เนื้อหาไม่เหมาะสม...</p>
+
+  <div class="page-content">
+    <div class="container">
+      <div class="grid">
+        <div class="card">
+          <h2>โพสต์ที่ถูกรายงาน</h2>
+          <div class="report-row">
+            <div>
+              <p class="meta">นิเทศศาสตร์ · 😢</p>
+              <p class="text">เนื้อหาไม่เหมาะสม...</p>
+            </div>
+            <button class="btn-danger">ลบ</button>
           </div>
-          <button class="btn-danger">ลบ</button>
         </div>
-      </div>
-      <div class="card">
-        <h2>เลื่อนขั้นผู้ใช้</h2>
-        <input class="search" placeholder="ค้นหารหัสนักศึกษา" />
-        <div class="promote-row">
-          <p>6512345 · role: user</p>
-          <button class="btn-outline">เลื่อนเป็น Admin</button>
+        <div class="card">
+          <h2>เลื่อนขั้นผู้ใช้</h2>
+          <input class="search" placeholder="ค้นหารหัสนักศึกษา" />
+          <div class="promote-row">
+            <p>6512345 · role: user</p>
+            <button class="btn-outline">เลื่อนเป็น Admin</button>
+          </div>
         </div>
       </div>
     </div>

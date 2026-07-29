@@ -6,7 +6,19 @@
 <title>Profile</title>
 <style>
   * { box-sizing: border-box; font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif; }
-  body { margin: 0; background: #FBF8F1; padding: 32px; justify-content: center; }
+  html, body { margin: 0; padding: 0; background: #FBF8F1; width: 100%; }
+
+  .navbar { width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; background: #FFFFFF; padding: 14px 28px; border-bottom: 1px solid #e7e7e7; }
+  .logo {display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 500;}
+  .logo span {font-size: 16px;}
+  .nav-menu {display: flex; gap: 12px; flex-wrap: wrap;}
+  .nav-link { text-decoration: none; color: #555; padding: 8px 18px; border-radius: 25px; transition:.2s;}
+  .nav-link:hover {background: #f5f1e8; border-color: #f5f1e8;}
+  .nav-link.active {background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A;}
+  .btn-admin {display: inline-block; margin-top: 12px; padding: 8px 18px; background: #1a1a1a; color: #FFFFFF; text-decoration: none; border-radius: 20px; font-size: 13px; font-weight: 500; margin-bottom: 20px;}
+  .btn-admin:hover {background: #8a2525;}
+
+  .page-content { padding: 32px; }
   .container {display: flex;justify-content: center; align-items: center; padding: 60px 20px;}
   .card { background: #FFFFFF; border-radius: 18px; padding: 32px; width: 100%; max-width: 420px; text-align: center; }
   .avatar-ring { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #7F77DD; padding: 3px; margin: 0 auto 12px; box-sizing: border-box; }
@@ -17,29 +29,21 @@
   .post-row { background: #F5F1E8; border-radius: 10px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
   .post-row .text { font-size: 12px; color: #1A1A1A; }
   .icons { display: flex; gap: 8px; font-size: 13px; color: #8A8A82; }
-  .navbar {width:100% ; display: flex; flex-wrap: wrap; justify-content: space-between;align-items: center; background: #FFFFFF; padding: 14px 28px; border-bottom: 1px solid #e7e7e7; margin: -32px -32px 0 -32px; }
-  .logo {display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 500;}
-  .logo span {font-size: 16px;}
-  .nav-menu {display: flex; gap: 12px; flex-wrap: wrap;}
-  .nav-link { text-decoration: none; color: #555; padding: 8px 18px; border-radius: 25px; transition:.2s;}
-  .nav-link:hover {background: #f5f1e8; border-color: #f5f1e8;}
-  .nav-link.active {background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A;}
-  .btn-admin {display: inline-block; margin-top: 12px; padding: 8px 18px; background: #1a1a1a; color: #FFFFFF; text-decoration: none; border-radius: 20px; font-size: 13px; font-weight: 500; margin-bottom: 20px;}
-  .btn-admin:hover {background: #8a2525;}
 
   /* ===== Responsive ===== */
   @media (max-width: 768px) {
-    body { padding: 20px; }
-    .navbar { padding: 12px 20px; margin: -20px -20px 0 -20px; }
+    .navbar { padding: 12px 20px; }
     .logo { font-size: 22px; }
     .logo span { font-size: 14px; }
     .nav-link { padding: 6px 12px; font-size: 12px; }
+    .page-content { padding: 20px; }
     .container { padding: 30px 16px; }
   }
   @media (max-width: 480px) {
-    .navbar { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 14px; margin: -14px -14px 0 -14px; }
+    .navbar { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 14px; }
     .nav-menu { width: 100%; justify-content: space-between; gap: 4px; }
     .nav-link { padding: 6px 8px; font-size: 11px; }
+    .page-content { padding: 14px; }
     .container { padding: 20px 12px; }
     .card { padding: 22px 18px; }
   }
@@ -57,22 +61,25 @@
         <a href="6-profile.html" class="nav-link active">Profile</a>
     </div>
   </nav>
-  <div class="container">
-    <div class="card">
-      <div class="avatar-ring">
-        <div class="avatar-inner">🌸</div>
-      </div>
-      <p class="studentid">นักศึกษารหัส 6512345</p>
-      <p class="subinfo">วิศวกรรมศาสตร์ · อารมณ์ล่าสุด: เครียด</p>
-      <a href="8-admin.html" class="btn-admin">⚙️ Admin Panel</a>
-      <div class="divider">
-        <div class="post-row">
-          <span class="text">😰 งานส่งพรุ่งนี้ยังไม่เสร็จเลย</span>
-          <span class="icons">✏️ 🗑️</span>
+
+  <div class="page-content">
+    <div class="container">
+      <div class="card">
+        <div class="avatar-ring">
+          <div class="avatar-inner">🌸</div>
         </div>
-        <div class="post-row">
-          <span class="text">😊 สอบผ่านแล้ว โล่งอก!</span>
-          <span class="icons">✏️ 🗑️</span>
+        <p class="studentid">นักศึกษารหัส 6512345</p>
+        <p class="subinfo">วิศวกรรมศาสตร์ · อารมณ์ล่าสุด: เครียด</p>
+        <a href="8-admin.html" class="btn-admin">⚙️ Admin Panel</a>
+        <div class="divider">
+          <div class="post-row">
+            <span class="text">😰 งานส่งพรุ่งนี้ยังไม่เสร็จเลย</span>
+            <span class="icons">✏️ 🗑️</span>
+          </div>
+          <div class="post-row">
+            <span class="text">😊 สอบผ่านแล้ว โล่งอก!</span>
+            <span class="icons">✏️ 🗑️</span>
+          </div>
         </div>
       </div>
     </div>

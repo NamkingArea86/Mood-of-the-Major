@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<title>สมัครสมาชิก</title>
-<style>
-  * { box-sizing: border-box; font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif; }
-  body { margin: 0; background: #FBF8F1; padding: 60px 20px; display: flex; justify-content: center; }
-  .card { background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 16px; padding: 28px 24px; width: 380px; }
-  .heading { text-align: center; margin-bottom: 20px; }
-  .heading h1 { font-size: 16px; font-weight: 500; color: #1A1A1A; margin: 0; }
-  .heading p { font-size: 12px; color: #8A8A82; margin: 4px 0 0; }
-  label { font-size: 12px; color: #6B6B65; display: block; margin-bottom: 4px; }
-  input, select { width: 100%; height: 38px; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 8px; padding: 0 12px; font-size: 14px; color: #1A1A1A; margin-bottom: 14px; background: #FFFFFF; }
-  .btn-primary { width: 100%; height: 40px; background: #1A1A1A; color: #FFFFFF; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; margin-top: 4px; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สมัครสมาชิก</title>
+  <style>
+    * {box-sizing: border-box; font-family: 'Inter','IBM Plex Sans Thai',sans-serif;}
+    body {margin: 0;background: #fbf8f1; padding: 60px 20px; display: flex; justify-content: center;}
+    .card {background: #ffffff;border: 0.5px solid rgba(0,0,0,0.1); border-radius: 16px;padding: 28px 24px; width: 100%; max-width: 380px;}
+    .heading { text-align: center; margin-bottom: 20px; }
+    .heading h1 { font-size: 16px; font-weight: 500; color: #1A1A1A; margin: 0; }
+    .heading p { font-size: 12px; color: #8A8A82; margin: 4px 0 0; }
+    label { font-size: 12px; color: #6B6B65; display: block; margin-bottom: 4px; }
+    input, select { width: 100%; height: 38px; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 8px; padding: 0 12px; font-size: 14px; color: #1A1A1A; margin-bottom: 14px; background: #FFFFFF; }
+    .btn-primary { width: 100%; height: 40px; background: #1A1A1A; color: #FFFFFF; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; margin-top: 4px; }
+
+    @media (max-width: 768px) {
+      body { padding: 40px 16px; }
+    }
+    @media (max-width: 480px) {
+      body { padding: 24px 12px; }
+      .card { padding: 22px 18px; border-radius: 14px; }
+    }
+  </style>
 </head>
 <body>
   <div class="card">
@@ -22,20 +31,21 @@
       <p>ใช้ข้อมูลนักศึกษาของคุณ</p>
     </div>
     <label>รหัสนักศึกษา</label>
-    <input placeholder="6512345" />
+    <input placeholder="6812345" />
     <label>คณะ</label>
     <select><option>เลือกคณะ</option>
             <option>คณะวิศวกรรมศาสตร์</option>
             <option>คณะสถาปัตยกรรม</option>
-            </select>
+    </select>
     <label>ชั้นปี</label>
     <select><option>เลือกชั้นปี</option>
             <option>ปี 1</option>
             <option>ปี 2</option>
             <option>ปี 3</option>
-            <option>ปี 4</option></select>
+            <option>ปี 4</option>
+    </select>
     <label>รหัสผ่าน</label>
-    <input type="password" placeholder="••••••••" />
+    <input type="password" placeholder="••••••••"/>
     <button class="btn-primary">สมัครสมาชิก</button>
   </div>
 </body>

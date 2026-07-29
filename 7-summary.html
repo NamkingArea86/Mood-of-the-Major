@@ -2,11 +2,13 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>สรุปอารมณ์</title>
 <style>
   * { box-sizing: border-box; font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif; }
-  body { margin: 0; background: #FBF8F1; padding: 40px 20px; display: flex; justify-content: center; }
-  .card { background: #FFFFFF; border-radius: 16px; padding: 20px; width: 420px; }
+  body { margin: 0; background: #FBF8F1; padding: 32px; justify-content: center; }
+  .container {display: flex;justify-content: center; align-items: center; padding: 60px 20px;}
+  .card { background: #FFFFFF; border-radius: 16px; padding: 20px; width: 90%; max-width: 900px; }
   .tabs { display: flex; gap: 6px; margin-bottom: 16px; }
   .tab { font-size: 11px; padding: 5px 12px; border-radius: 20px; }
   .tab.active { background: #1A1A1A; color: #FFFFFF; }
@@ -27,39 +29,78 @@
   .bar { height: 14px; border-radius: 6px; overflow: hidden; display: flex; }
   .seg-happy { background: #EF9F27; } .seg-stressed { background: #7F77DD; }
   .seg-tired { background: #D3D1C7; } .seg-neutral { background: #B4B2A9; } .seg-sad { background: #378ADD; }
+  .navbar {width:100% ; display: flex; flex-wrap: wrap; justify-content: space-between;align-items: center; background: #FFFFFF; padding: 14px 28px; border-bottom: 1px solid #e7e7e7; margin: -32px -32px 0 -32px; }
+  .logo {display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 500;}
+  .logo span {font-size: 16px;}
+  .nav-menu {display: flex; gap: 12px; flex-wrap: wrap;}
+  .nav-link { text-decoration: none; color: #555; padding: 8px 18px; border-radius: 25px; transition:.2s;}
+  .nav-link:hover {background: #f5f1e8; border-color: #f5f1e8;}
+  .nav-link.active {background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A;}
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    body { padding: 20px; }
+    .navbar { padding: 12px 20px; margin: -20px -20px 0 -20px; }
+    .logo { font-size: 22px; }
+    .logo span { font-size: 14px; }
+    .nav-link { padding: 6px 12px; font-size: 12px; }
+    .container { padding: 30px 16px; }
+    .card { width: 100%; }
+  }
+  @media (max-width: 480px) {
+    .navbar { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 14px; margin: -14px -14px 0 -14px; }
+    .nav-menu { width: 100%; justify-content: space-between; gap: 4px; }
+    .nav-link { padding: 6px 8px; font-size: 11px; }
+    .container { padding: 16px 10px; }
+    .card { padding: 16px; }
+    .overall { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  }
 </style>
 </head>
 <body>
-  <div class="card">
-    <div class="tabs">
-      <span class="tab active">ภาพรวม</span>
-      <span class="tab inactive">แยกตามคณะ</span>
+  <nav class="navbar">
+    <div class="logo">
+        🌻 <span>Mood of the Major</span>
     </div>
-    <div class="overall">
-      <div class="mood-box bg-happy"><p class="emoji">😊</p><p class="pct txt-happy">32%</p></div>
-      <div class="mood-box bg-stressed"><p class="emoji">😰</p><p class="pct txt-stressed">28%</p></div>
-      <div class="mood-box bg-tired"><p class="emoji">😴</p><p class="pct txt-tired">20%</p></div>
-      <div class="mood-box bg-neutral"><p class="emoji">😐</p><p class="pct txt-neutral">12%</p></div>
-      <div class="mood-box bg-sad"><p class="emoji">😢</p><p class="pct txt-sad">8%</p></div>
+    <div class="nav-menu">
+        <a href="3-feed.html" class="nav-link">Feed</a>
+        <a href="4-post.html" class="nav-link">Post</a>
+        <a href="7-summary.html" class="nav-link active">สรุป</a>
+        <a href="6-profile.html" class="nav-link">Profile</a>
     </div>
-    <div class="faculty-row">
-      <div class="faculty-label"><span class="name">วิศวกรรมศาสตร์</span><span class="top">เครียดสูงสุด 45%</span></div>
-      <div class="bar">
-        <div class="seg-happy" style="width:20%"></div>
-        <div class="seg-stressed" style="width:45%"></div>
-        <div class="seg-tired" style="width:15%"></div>
-        <div class="seg-neutral" style="width:10%"></div>
-        <div class="seg-sad" style="width:10%"></div>
+  </nav>
+  <div class="container">
+    <div class="card">
+      <div class="tabs">
+        <span class="tab active">ภาพรวม</span>
+        <span class="tab inactive">แยกตามคณะ</span>
       </div>
-    </div>
-    <div class="faculty-row">
-      <div class="faculty-label"><span class="name">ศิลปศาสตร์</span><span class="top">มีความสุขสูงสุด 38%</span></div>
-      <div class="bar">
-        <div class="seg-happy" style="width:38%"></div>
-        <div class="seg-stressed" style="width:22%"></div>
-        <div class="seg-tired" style="width:20%"></div>
-        <div class="seg-neutral" style="width:12%"></div>
-        <div class="seg-sad" style="width:8%"></div>
+      <div class="overall">
+        <div class="mood-box bg-happy"><p class="emoji">😊</p><p class="pct txt-happy">32%</p></div>
+        <div class="mood-box bg-stressed"><p class="emoji">😰</p><p class="pct txt-stressed">28%</p></div>
+        <div class="mood-box bg-tired"><p class="emoji">😴</p><p class="pct txt-tired">20%</p></div>
+        <div class="mood-box bg-neutral"><p class="emoji">😐</p><p class="pct txt-neutral">12%</p></div>
+        <div class="mood-box bg-sad"><p class="emoji">😢</p><p class="pct txt-sad">8%</p></div>
+      </div>
+      <div class="faculty-row">
+        <div class="faculty-label"><span class="name">วิศวกรรมศาสตร์</span><span class="top">เครียดสูงสุด 45%</span></div>
+        <div class="bar">
+          <div class="seg-happy" style="width:20%"></div>
+          <div class="seg-stressed" style="width:45%"></div>
+          <div class="seg-tired" style="width:15%"></div>
+          <div class="seg-neutral" style="width:10%"></div>
+          <div class="seg-sad" style="width:10%"></div>
+        </div>
+      </div>
+      <div class="faculty-row">
+        <div class="faculty-label"><span class="name">ศิลปศาสตร์</span><span class="top">มีความสุขสูงสุด 38%</span></div>
+        <div class="bar">
+          <div class="seg-happy" style="width:38%"></div>
+          <div class="seg-stressed" style="width:22%"></div>
+          <div class="seg-tired" style="width:20%"></div>
+          <div class="seg-neutral" style="width:12%"></div>
+          <div class="seg-sad" style="width:8%"></div>
+        </div>
       </div>
     </div>
   </div>

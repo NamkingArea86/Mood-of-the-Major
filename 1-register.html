@@ -19,12 +19,25 @@
     .footer a { text-decoration: none; }
     .footer span { color: #1A1A1A; font-weight: 500; }
 
+    /* ===== Avatar picker ===== */
+    .avatar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+    .avatar-option {
+      display: flex; align-items: center; justify-content: center;
+      aspect-ratio: 1 / 1; border-radius: 12px;
+      background: #F5F1E8; border: 2px solid transparent;
+      font-size: 22px; cursor: pointer; transition: 0.15s;
+      user-select: none;
+    }
+    .avatar-option:hover { background: #EFE9DA; }
+    .avatar-option.selected { border-color: #1A1A1A; background: #FFF; box-shadow: 0 0 0 2px #1A1A1A inset; }
+
     @media (max-width: 768px) {
       body { padding: 40px 16px; }
     }
     @media (max-width: 480px) {
       body { padding: 24px 12px; }
       .card { padding: 22px 18px; border-radius: 14px; }
+      .avatar-option { font-size: 18px; }
     }
   </style>
 </head>
@@ -33,6 +46,18 @@
     <div class="heading">
       <h1>สร้างบัญชีใหม่</h1>
       <p>ใช้ข้อมูลนักศึกษาของคุณ</p>
+    </div>
+
+    <label>เลือกรูปโปรไฟล์</label>
+    <div class="avatar-grid" id="avatarGrid">
+      <div class="avatar-option" data-avatar="tulip">🌷</div>
+      <div class="avatar-option" data-avatar="cherry">🌸</div>
+      <div class="avatar-option" data-avatar="rose">🌹</div>
+      <div class="avatar-option" data-avatar="sunflower">🌻</div>
+      <div class="avatar-option" data-avatar="daisy">🌼</div>
+      <div class="avatar-option" data-avatar="white_flower">💮</div>
+      <div class="avatar-option" data-avatar="lotus">🪷</div>
+      <div class="avatar-option" data-avatar="hyacinth">🪻</div>
     </div>
 
     <label for="studentId">รหัสนักศึกษา</label>
@@ -66,6 +91,17 @@
   </div>
 
   <script>
+    let selectedAvatar = null;
+
+    // ผูก event ให้ปุ่มเลือกดอกไม้แต่ละอัน
+    document.querySelectorAll('.avatar-option').forEach(el => {
+      el.addEventListener('click', () => {
+        document.querySelectorAll('.avatar-option').forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedAvatar = el.dataset.avatar;
+      });
+    });
+
     async function handleRegister() {
       const studentId = document.getElementById('studentId').value.trim();
       const faculty = document.getElementById('faculty').value;
@@ -77,12 +113,18 @@
         return;
       }
 
+      if (!selectedAvatar) {
+        alert('กรุณาเลือกรูปโปรไฟล์ดอกไม้');
+        return;
+      }
+
       try {
         const result = await registerUser({
           studentId,
           faculty,
           year: Number(year),
-          password
+          password,
+          avatar: selectedAvatar
         });
 
         if (result && (result.ok || result.status === 201 || result.success)) {

@@ -1,5 +1,5 @@
 // api.js
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = 'https://mood-of-the-major-production-9969.up.railway.app/api';
 
 // ดึง Token จาก LocalStorage
 function getAuthHeader() {

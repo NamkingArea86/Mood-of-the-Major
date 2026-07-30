@@ -8,6 +8,18 @@ const MOOD_META = {
   sad:      { emoji: '😢', label: 'เศร้า',       color: '#378ADD' }
 };
 
+// รูปโปรไฟล์ดอกไม้ที่เลือกไว้ตอนสมัครสมาชิก
+const FLOWER_AVATAR_MAP = {
+  tulip: '🌷',
+  cherry: '🌸',
+  rose: '🌹',
+  sunflower: '🌻',
+  daisy: '🌼',
+  white_flower: '💮',
+  lotus: '🪷',
+  hyacinth: '🪻'
+};
+
 function escapeHtml(str) {
   const div = document.createElement('div');
   div.textContent = str;
@@ -62,6 +74,12 @@ async function loadProfile() {
 
   document.getElementById('studentIdText').innerText = `นักศึกษารหัส ${user.studentId}`;
   document.getElementById('subInfoText').innerText = `${user.faculty} · อารมณ์ล่าสุด: เฉยๆ`;
+
+  // แสดงรูปโปรไฟล์ดอกไม้ตามที่ผู้ใช้เลือกไว้ตอนสมัคร
+  const avatarInner = document.querySelector('#avatarRing .avatar-inner');
+  if (avatarInner) {
+    avatarInner.textContent = FLOWER_AVATAR_MAP[user.avatar] || '🌸';
+  }
 
   // ถ้าเป็น Admin โชว์ปุ่มไปหน้า Admin panel
   if (user.role === 'admin') {

@@ -21,10 +21,8 @@
   .page-content { padding: 32px; }
   .container {display: flex;justify-content: center; align-items: center; padding: 60px 20px;}
   .card { background: #FFFFFF; border-radius: 16px; padding: 20px; width: 90%; max-width: 900px; }
-  .tabs { display: flex; gap: 6px; margin-bottom: 16px; }
-  .tab { font-size: 11px; padding: 5px 12px; border-radius: 20px; cursor: pointer; border: none; }
-  .tab.active { background: #1A1A1A; color: #FFFFFF; }
-  .tab.inactive { background: #F5F1E8; color: #1A1A1A; }
+  .section-title { font-size: 13px; font-weight: 600; color: #1A1A1A; margin: 0 0 12px; }
+  .section-divider { height: 1px; background: #ECE8DD; margin: 24px 0; border: none; }
   .overall { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 20px; }
   .mood-box { border-radius: 8px; padding: 10px 4px; text-align: center; }
   .mood-box .emoji { font-size: 18px; margin: 0; }
@@ -42,7 +40,6 @@
   .seg-happy { background: #EF9F27; } .seg-stressed { background: #7F77DD; }
   .seg-tired { background: #D3D1C7; } .seg-neutral { background: #B4B2A9; } .seg-sad { background: #378ADD; }
   .empty-msg { color: #8A8A82; font-size: 13px; text-align: center; padding: 30px 0; }
-  #facultyView { display: none; }
 
   @media (max-width: 768px) {
     .navbar { padding: 12px 20px; }
@@ -80,11 +77,7 @@
   <div class="page-content">
     <div class="container">
       <div class="card">
-        <div class="tabs">
-          <button class="tab active" id="tabOverallBtn" onclick="switchTab('overall')">ภาพรวม</button>
-          <button class="tab inactive" id="tabFacultyBtn" onclick="switchTab('faculty')">แยกตามคณะ</button>
-        </div>
-
+        <p class="section-title">ภาพรวม</p>
         <div id="overallView">
           <div class="overall">
             <div class="mood-box bg-happy"><p class="emoji">😊</p><p class="pct txt-happy" id="pct-happy">0%</p></div>
@@ -95,6 +88,9 @@
           </div>
         </div>
 
+        <hr class="section-divider">
+
+        <p class="section-title">แยกตามคณะ</p>
         <div id="facultyView">
           <div id="facultyRows">
             <p class="empty-msg">กำลังโหลด...</p>

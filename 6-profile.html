@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profile</title>
+<script src="js/api.js"></script>
+<script src="js/profile.js" defer></script>
 <style>
   * { box-sizing: border-box; font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif; }
   html, body { margin: 0; padding: 0; background: #FBF8F1; width: 100%; }
@@ -16,19 +18,26 @@
   .nav-link:hover {background: #f5f1e8; border-color: #f5f1e8;}
   .nav-link.active {background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A;}
 
+  /* ปรับแต่งปุ่ม Admin และ ปุ่ม Logout */
+  .btn-admin {display: inline-block; margin-top: 6px; padding: 8px 18px; background: #1a1a1a; color: #FFFFFF; text-decoration: none; border-radius: 20px; font-size: 13px; font-weight: 500; border: none; cursor: pointer; transition: 0.2s;}
+  .btn-admin:hover {background: #8a2525;}
+  
+  .btn-logout { width: 100%; margin-top: 14px; padding: 9px 0; background: transparent; color: #d9534f; border: 1px solid #d9534f; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; transition: 0.2s; }
+  .btn-logout:hover { background: #d9534f; color: #FFFFFF; }
+
   .page-content { padding: 32px; }
   .container {display: flex;justify-content: center; align-items: center; padding: 60px 20px;}
-  .card { background: #FFFFFF; border-radius: 16px; padding: 24px; width: 100%; max-width: 360px; text-align: center; }
-  .avatar-ring { width: 70px; height: 70px; border-radius: 50%; border: 3px solid #7F77DD; padding: 3px; margin: 0 auto 12px; box-sizing: border-box; }
-  .avatar-inner { width: 100%; height: 100%; border-radius: 50%; background: #EEEDFE; display: flex; align-items: center; justify-content: center; font-size: 26px; }
+  .card { background: #FFFFFF; border-radius: 16px; padding: 24px; width: 100%; max-width: 400px; text-align: center; }
+  .avatar-ring { width: 70px; height: 70px; border-radius: 50%; border: 3px solid #888780; padding: 3px; margin: 0 auto 12px; box-sizing: border-box; transition: border-color .2s; }
+  .avatar-inner { width: 100%; height: 100%; border-radius: 50%; background: #F1EFE8; display: flex; align-items: center; justify-content: center; font-size: 26px; }
   .studentid { font-size: 14px; font-weight: 500; color: #1A1A1A; margin: 0; }
-  .subinfo { font-size: 11px; color: #8A8A82; margin: 3px 0 16px; }
-  .divider { border-top: 0.5px solid rgba(0,0,0,0.08); padding-top: 12px; text-align: left; }
+  .subinfo { font-size: 11px; color: #8A8A82; margin: 3px 0 10px; }
+  .divider { border-top: 0.5px solid rgba(0,0,0,0.08); padding-top: 12px; text-align: left; margin-top: 12px;}
   .post-row { background: #F5F1E8; border-radius: 10px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
   .post-row .text { font-size: 12px; color: #1A1A1A; }
-  .icons { display: flex; gap: 8px; font-size: 13px; color: #8A8A82; }
+  .icons { display: flex; gap: 8px; font-size: 13px; color: #8A8A82; cursor: pointer; }
+  .empty-msg { color: #8A8A82; font-size: 12px; text-align: center; padding: 16px 0; }
 
-  /* ===== Responsive ===== */
   @media (max-width: 768px) {
     .navbar { padding: 12px 20px; }
     .logo { font-size: 22px; }
@@ -63,20 +72,21 @@
   <div class="page-content">
     <div class="container">
       <div class="card">
-        <div class="avatar-ring">
+        <div class="avatar-ring" id="avatarRing">
           <div class="avatar-inner">🌸</div>
         </div>
-        <p class="studentid">นักศึกษารหัส 6512345</p>
-        <p class="subinfo">วิศวกรรมศาสตร์ · อารมณ์ล่าสุด: เครียด</p>
-        <div class="divider">
-          <div class="post-row">
-            <span class="text">😰 งานส่งพรุ่งนี้ยังไม่เสร็จเลย</span>
-            <span class="icons">✏️ 🗑️</span>
-          </div>
-          <div class="post-row">
-            <span class="text">😊 สอบผ่านแล้ว โล่งอก!</span>
-            <span class="icons">✏️ 🗑️</span>
-          </div>
+        <p class="studentid" id="studentIdText">นักศึกษารหัส -</p>
+        <p class="subinfo" id="subInfoText">- · อารมณ์ล่าสุด: -</p>
+        
+        <!-- ช่องใส่ปุ่ม Admin (จะถูก Render ผ่าน profile.js เมื่อ role === 'admin') -->
+        <div id="adminBtnSlot"></div>
+
+        <!-- ปุ่ม ออกจากระบบ (เพิ่มกลับเข้ามาตรงนี้) -->
+        <button class="btn-logout" onclick="handleLogout()">ออกจากระบบ</button>
+
+        <!-- รายการโพสต์ของฉัน -->
+        <div class="divider" id="myPostsList">
+          <p class="empty-msg">กำลังโหลด...</p>
         </div>
       </div>
     </div>

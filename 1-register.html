@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>สมัครสมาชิก</title>
+  <script src="js/api.js"></script>
   <style>
     * {box-sizing: border-box; font-family: 'Inter','IBM Plex Sans Thai',sans-serif;}
     body {margin: 0;background: #fbf8f1; padding: 60px 20px; display: flex; justify-content: center;}
@@ -13,7 +14,10 @@
     .heading p { font-size: 12px; color: #8A8A82; margin: 4px 0 0; }
     label { font-size: 12px; color: #6B6B65; display: block; margin-bottom: 4px; }
     input, select { width: 100%; height: 38px; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 8px; padding: 0 12px; font-size: 14px; color: #1A1A1A; margin-bottom: 14px; background: #FFFFFF; }
-    .btn-primary { width: 100%; height: 40px; background: #1A1A1A; color: #FFFFFF; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; margin-top: 4px; }
+    .btn-primary { width: 100%; height: 40px; background: #1A1A1A; color: #FFFFFF; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; margin-top: 4px; cursor: pointer; }
+    .footer { text-align: center; font-size: 12px; color: #8A8A82; margin-top: 14px; }
+    .footer a { text-decoration: none; }
+    .footer span { color: #1A1A1A; font-weight: 500; }
 
     @media (max-width: 768px) {
       body { padding: 40px 16px; }
@@ -30,23 +34,68 @@
       <h1>สร้างบัญชีใหม่</h1>
       <p>ใช้ข้อมูลนักศึกษาของคุณ</p>
     </div>
-    <label>รหัสนักศึกษา</label>
-    <input placeholder="6812345" />
-    <label>คณะ</label>
-    <select><option>เลือกคณะ</option>
-            <option>คณะวิศวกรรมศาสตร์</option>
-            <option>คณะสถาปัตยกรรม</option>
+
+    <label for="studentId">รหัสนักศึกษา</label>
+    <input id="studentId" type="text" placeholder="6812345" />
+
+    <label for="faculty">คณะ</label>
+    <select id="faculty">
+      <option value="">เลือกคณะ</option>
+      <option value="วิศวกรรมศาสตร์">คณะวิศวกรรมศาสตร์</option>
+      <option value="สถาปัตยกรรม">คณะสถาปัตยกรรม</option>
+      <option value="ศิลปศาสตร์">คณะศิลปศาสตร์</option>
+      <option value="นิเทศศาสตร์">คณะนิเทศศาสตร์</option>
+      <option value="บริหารธุรกิจ">คณะบริหารธุรกิจ</option>
     </select>
-    <label>ชั้นปี</label>
-    <select><option>เลือกชั้นปี</option>
-            <option>ปี 1</option>
-            <option>ปี 2</option>
-            <option>ปี 3</option>
-            <option>ปี 4</option>
+
+    <label for="year">ชั้นปี</label>
+    <select id="year">
+      <option value="">เลือกชั้นปี</option>
+      <option value="1">ปี 1</option>
+      <option value="2">ปี 2</option>
+      <option value="3">ปี 3</option>
+      <option value="4">ปี 4</option>
     </select>
-    <label>รหัสผ่าน</label>
-    <input type="password" placeholder="••••••••"/>
-    <button class="btn-primary">สมัครสมาชิก</button>
+
+    <label for="password">รหัสผ่าน</label>
+    <input id="password" type="password" placeholder="••••••••"/>
+
+    <button class="btn-primary" onclick="handleRegister()">สมัครสมาชิก</button>
+
+    <p class="footer">มีบัญชีอยู่แล้ว? <a href="2-login.html"><span>เข้าสู่ระบบ</span></a></p>
   </div>
+
+  <script>
+    async function handleRegister() {
+      const studentId = document.getElementById('studentId').value.trim();
+      const faculty = document.getElementById('faculty').value;
+      const year = document.getElementById('year').value;
+      const password = document.getElementById('password').value.trim();
+
+      if (!studentId || !faculty || !year || !password) {
+        alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+        return;
+      }
+
+      try {
+        const result = await registerUser({
+          studentId,
+          faculty,
+          year: Number(year),
+          password
+        });
+
+        if (result && (result.ok || result.status === 201 || result.success)) {
+          alert('สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ');
+          window.location.href = '2-login.html';
+        } else {
+          alert(result.message || 'เกิดข้อผิดพลาดในการสมัครสมาชิก');
+        }
+      } catch (error) {
+        console.error('Register error:', error);
+        alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง');
+      }
+    }
+  </script>
 </body>
 </html>

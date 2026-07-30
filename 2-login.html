@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>เข้าสู่ระบบ</title>
+<script src="js/api.js"></script>
 <style>
   * { box-sizing: border-box; font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif; }
   body { margin: 0; background: #FBF8F1; padding: 60px 20px; display: flex; justify-content: center; }
@@ -18,8 +19,8 @@
   .footer { text-align: center; font-size: 12px; color: #8A8A82; margin-top: 14px; }
   .footer a { text-decoration: none; }
   .footer span { color: #1A1A1A; font-weight: 500; }
+  .error-msg { color: #A32D2D; font-size: 12px; text-align: center; margin: -6px 0 12px; display: none; }
 
-  /* ===== Responsive ===== */
   @media (max-width: 768px) {
     body { padding: 40px 16px; }
   }
@@ -37,11 +38,37 @@
       <p>เข้าสู่ระบบด้วยรหัสนักศึกษา</p>
     </div>
     <label>รหัสนักศึกษา</label>
-    <input placeholder="6512345" />
+    <input id="studentId" placeholder="6512345" />
     <label>รหัสผ่าน</label>
-    <input type="password" placeholder="••••••••" />
-    <button class="btn-primary" onclick="location.href='3-feed.html'">เข้าสู่ระบบ</button>
+    <input id="password" type="password" placeholder="••••••••" />
+    <p id="errorMsg" class="error-msg"></p>
+    <button class="btn-primary" onclick="handleLogin()">เข้าสู่ระบบ</button>
     <p class="footer">ยังไม่มีบัญชี? <a href="1-register.html"><span>สมัครสมาชิก</span></a></p>
   </div>
+
+  <script>
+    async function handleLogin() {
+      const studentId = document.getElementById('studentId').value.trim();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
+      errorMsg.style.display = 'none';
+
+      if (!studentId || !password) {
+        errorMsg.textContent = 'กรุณากรอกรหัสนักศึกษาและรหัสผ่าน';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      // เรียกฟังก์ชัน loginUser() จาก api.js — ไม่ใช่ register
+      const result = await loginUser(studentId, password);
+
+      if (result.success) {
+        window.location.href = '3-feed.html';
+      } else {
+        errorMsg.textContent = result.message || 'เข้าสู่ระบบไม่สำเร็จ';
+        errorMsg.style.display = 'block';
+      }
+    }
+  </script>
 </body>
 </html>

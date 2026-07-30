@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ดูโพสต์โดยรวม</title>
+<script src="js/api.js"></script>
+<script src="js/feed.js" defer></script>
 <style>
   * { box-sizing: border-box; font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif; }
   html, body { margin: 0; padding: 0; background: #FBF8F1; width: 100%; }
@@ -19,19 +21,19 @@
   .page-content { padding: 32px; }
   .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
   select { height: 32px; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 8px; padding: 0 10px; font-size: 12px; background: #FFFFFF; color: #1A1A1A; }
-  .btn-post { margin-left: auto; height: 32px; background: #1A1A1A; color: #FFFFFF; border: none; border-radius: 8px; font-size: 12px; padding: 0 14px; }
+  .btn-post { margin-left: auto; height: 32px; background: #1A1A1A; color: #FFFFFF; border: none; border-radius: 8px; font-size: 12px; padding: 0 14px; cursor: pointer; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
   .card { background: #FFFFFF; border-radius: 12px; padding: 14px; }
   .card .meta { font-size: 11px; color: #8A8A82; margin: 0 0 6px; }
   .card .emoji { font-size: 22px; margin: 0 0 8px; }
-  .card .text { font-size: 13px; color: #1A1A1A; margin: 0; }
+  .card .text { font-size: 13px; color: #1A1A1A; margin: 0; word-break: break-word; }
   .mood-happy { border-left: 3px solid #EF9F27; }
   .mood-stressed { border-left: 3px solid #7F77DD; }
   .mood-tired { border-left: 3px solid #B4B2A9; }
   .mood-neutral { border-left: 3px solid #888780; }
   .mood-sad { border-left: 3px solid #378ADD; }
+  .empty-msg { color: #8A8A82; font-size: 13px; text-align: center; padding: 40px 0; grid-column: 1 / -1; }
 
-  /* ===== Responsive ===== */
   @media (max-width: 768px) {
     .navbar { padding: 12px 20px; }
     .logo { font-size: 22px; }
@@ -66,37 +68,26 @@
 
   <div class="page-content">
     <div class="toolbar">
-      <select><option>อารมณ์: ทั้งหมด</option></select>
-      <select><option>วันที่: ทั้งหมด</option></select>
-      <select><option>คณะ: ทั้งหมด</option></select>
-      <button class="btn-post">+ โพสต์อารมณ์</button>
+      <select id="filterMood">
+        <option value="">อารมณ์: ทั้งหมด</option>
+        <option value="happy">😊 มีความสุข</option>
+        <option value="stressed">😰 เครียด</option>
+        <option value="tired">😴 เหนื่อย</option>
+        <option value="neutral">😐 เฉยๆ</option>
+        <option value="sad">😢 เศร้า</option>
+      </select>
+      <select id="filterFaculty">
+        <option value="">คณะ: ทั้งหมด</option>
+        <option value="วิศวกรรมศาสตร์">คณะวิศวกรรมศาสตร์</option>
+        <option value="สถาปัตยกรรม">คณะสถาปัตยกรรม</option>
+        <option value="ศิลปศาสตร์">คณะศิลปศาสตร์</option>
+        <option value="นิเทศศาสตร์">คณะนิเทศศาสตร์</option>
+        <option value="บริหารธุรกิจ">คณะบริหารธุรกิจ</option>
+      </select>
+      <button class="btn-post" onclick="location.href='4-post.html'">+ โพสต์อารมณ์</button>
     </div>
-    <div class="grid">
-      <div class="card mood-happy">
-        <p class="meta">วิศวกรรมศาสตร์ · 2 ชม.</p>
-        <p class="emoji">😊</p>
-        <p class="text">สอบผ่านแล้ว โล่งอก!</p>
-      </div>
-      <div class="card mood-stressed">
-        <p class="meta">ศิลปศาสตร์ · 4 ชม.</p>
-        <p class="emoji">😰</p>
-        <p class="text">งานส่งพรุ่งนี้ยังไม่เสร็จเลย</p>
-      </div>
-      <div class="card mood-sad">
-        <p class="meta">นิเทศศาสตร์ · 6 ชม.</p>
-        <p class="emoji">😢</p>
-        <p class="text">คิดถึงบ้านจัง</p>
-      </div>
-      <div class="card mood-neutral">
-        <p class="meta">วิศวกรรมศาสตร์ · 1 วัน</p>
-        <p class="emoji">😐</p>
-        <p class="text">วันนี้เรื่อยๆ ไม่มีอะไรพิเศษ</p>
-      </div>
-      <div class="card mood-tired">
-        <p class="meta">บริหารธุรกิจ · 1 วัน</p>
-        <p class="emoji">😴</p>
-        <p class="text">นอนไม่พอเลยสัปดาห์นี้</p>
-      </div>
+    <div class="grid" id="moodGrid">
+      <p class="empty-msg">กำลังโหลด...</p>
     </div>
   </div>
 </body>

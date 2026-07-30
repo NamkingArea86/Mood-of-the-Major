@@ -1,63 +1,81 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>โพสต์อารมณ์ใหม่</title>
-<style>
-  * { box-sizing: border-box; font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif; }
-  html, body { margin: 0; padding: 0; background: #FBF8F1; width: 100%; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>โพสต์อารมณ์ใหม่</title>
+  <script src="js/api.js"></script>
+  <script src="js/post.js" defer></script>
+  <style>
+    * { box-sizing: border-box; font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif; }
+    html, body { margin: 0; padding: 0; background: #FBF8F1; width: 100%; }
 
-  .navbar { width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; background: #FFFFFF; padding: 14px 28px; border-bottom: 1px solid #e7e7e7; }
-  .logo {display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 500;}
-  .logo span {font-size: 16px;}
-  .nav-menu {display: flex; gap: 12px; flex-wrap: wrap;}
-  .nav-link { text-decoration: none; color: #555; padding: 8px 18px; border-radius: 25px; transition:.2s;}
-  .nav-link:hover {background: #f5f1e8; border-color: #f5f1e8;}
-  .nav-link.active {background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A;}
+    .navbar { width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; background: #FFFFFF; padding: 14px 28px; border-bottom: 1px solid #e7e7e7; }
+    .logo { display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 500; }
+    .logo span { font-size: 16px; }
+    .nav-menu { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-link { text-decoration: none; color: #555; padding: 8px 18px; border-radius: 25px; transition: .2s; }
+    .nav-link:hover { background: #f5f1e8; border-color: #f5f1e8; }
+    .nav-link.active { background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A; }
 
-  .page-content { padding: 32px; }
-  .container {display: flex;justify-content: center;padding: 60px 20px;}
-  .card { background: #FFFFFF; border-radius: 16px; padding: 24px; width: 100%; max-width: 400px; }
-  h1 { font-size: 15px; font-weight: 500; color: #1A1A1A; margin: 0 0 4px; }
-  .as-faculty { font-size: 11px; color: #8A8A82; margin: 0 0 16px; }
-  .mood-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-  .mood-btn { width: 44px; height: 44px; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 20px; background: #FFFFFF; }
-  .mood-btn.selected { border: 2px solid #EF9F27; background: #FAEEDA; }
-  textarea { width: 100%; height: 80px; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 8px; padding: 10px 12px; font-size: 14px; color: #1A1A1A; margin-bottom: 16px; resize: none; }
-  .btn-primary { width: 100%; height: 40px; background: #1A1A1A; color: #FFFFFF; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; }
-  .lock-note { text-align: center; font-size: 11px; color: #8A8A82; margin-top: 12px; }
+    .page-content { padding: 32px; }
+    .container { display: flex; justify-content: center; padding: 60px 20px; }
+    .card { background: #FFFFFF; border-radius: 16px; padding: 24px; width: 100%; max-width: 400px; }
+    h1 { font-size: 15px; font-weight: 500; color: #1A1A1A; margin: 0 0 4px; }
+    .as-faculty { font-size: 11px; color: #8A8A82; margin: 0 0 16px; }
+    .mood-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    
+    /* เพิ่ม position และ z-index ให้ปุ่มถูกคลิกได้แน่นอน */
+    .mood-btn { 
+      width: 44px; 
+      height: 44px; 
+      border-radius: 10px; 
+      border: 0.5px solid rgba(0,0,0,0.1); 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 20px; 
+      background: #FFFFFF; 
+      cursor: pointer; 
+      transition: all 0.2s ease;
+      position: relative;
+      z-index: 10;
+    }
+    .mood-btn.selected { border: 2px solid #EF9F27; background: #FAEEDA; }
+    textarea { width: 100%; height: 80px; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 8px; padding: 10px 12px; font-size: 14px; color: #1A1A1A; margin-bottom: 16px; resize: none; }
+    .btn-primary { width: 100%; height: 40px; background: #1A1A1A; color: #FFFFFF; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; }
+    .lock-note { text-align: center; font-size: 11px; color: #8A8A82; margin-top: 12px; }
 
-  /* ===== Responsive ===== */
-  @media (max-width: 768px) {
-    .navbar { padding: 12px 20px; }
-    .logo { font-size: 22px; }
-    .logo span { font-size: 14px; }
-    .nav-link { padding: 6px 12px; font-size: 12px; }
-    .page-content { padding: 20px; }
-    .container { padding: 30px 16px; }
-  }
-  @media (max-width: 480px) {
-    .navbar { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 14px; }
-    .nav-menu { width: 100%; justify-content: space-between; gap: 4px; }
-    .nav-link { padding: 6px 8px; font-size: 11px; }
-    .page-content { padding: 14px; }
-    .container { padding: 20px 12px; }
-    .card { padding: 20px 16px; }
-    .mood-btn { width: 40px; height: 40px; }
-  }
-</style>
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar { padding: 12px 20px; }
+      .logo { font-size: 22px; }
+      .logo span { font-size: 14px; }
+      .nav-link { padding: 6px 12px; font-size: 12px; }
+      .page-content { padding: 20px; }
+      .container { padding: 30px 16px; }
+    }
+    @media (max-width: 480px) {
+      .navbar { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 14px; }
+      .nav-menu { width: 100%; justify-content: space-between; gap: 4px; }
+      .nav-link { padding: 6px 8px; font-size: 11px; }
+      .page-content { padding: 14px; }
+      .container { padding: 20px 12px; }
+      .card { padding: 20px 16px; }
+      .mood-btn { width: 40px; height: 40px; }
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
     <div class="logo">
-        🌻 <span>Mood of the Major</span>
+      🌻 <span>Mood of the Major</span>
     </div>
     <div class="nav-menu">
-        <a href="3-feed.html" class="nav-link">Feed</a>
-        <a href="4-post.html" class="nav-link active">Post</a>
-        <a href="7-summary.html" class="nav-link">สรุป</a>
-        <a href="6-profile.html" class="nav-link">Profile</a>
+      <a href="3-feed.html" class="nav-link">Feed</a>
+      <a href="4-post.html" class="nav-link active">Post</a>
+      <a href="7-summary.html" class="nav-link">สรุป</a>
+      <a href="6-profile.html" class="nav-link">Profile</a>
     </div>
   </nav>
 
@@ -65,16 +83,19 @@
     <div class="container">
       <div class="card">
         <h1>แชร์อารมณ์ของคุณ</h1>
-        <p class="as-faculty">โพสต์ในนาม: วิศวกรรมศาสตร์ (ดึงจากบัญชีของคุณอัตโนมัติ)</p>
+        <p class="as-faculty" id="userFacultyText">โพสต์ในนาม: คณะของคุณ (ดึงจากบัญชีของคุณอัตโนมัติ)</p>
+        
         <div class="mood-row">
-          <div class="mood-btn selected">😊</div>
-          <div class="mood-btn">😰</div>
-          <div class="mood-btn">😴</div>
-          <div class="mood-btn">😐</div>
-          <div class="mood-btn">😢</div>
+          <div class="mood-btn selected" onclick="selectMood(this, 'happy')">😊</div>
+          <div class="mood-btn" onclick="selectMood(this, 'stressed')">😰</div>
+          <div class="mood-btn" onclick="selectMood(this, 'tired')">😴</div>
+          <div class="mood-btn" onclick="selectMood(this, 'neutral')">😐</div>
+          <div class="mood-btn" onclick="selectMood(this, 'sad')">😢</div>
         </div>
-        <textarea placeholder="วันนี้เป็นยังไงบ้าง..."></textarea>
-        <button class="btn-primary">โพสต์แบบไม่ระบุตัวตน</button>
+
+        <textarea id="postContent" placeholder="วันนี้เป็นยังไงบ้าง..."></textarea>
+        
+        <button class="btn-primary" id="submitBtn" onclick="handleCreatePost()">โพสต์แบบไม่ระบุตัวตน</button>
         <p class="lock-note">🔒 ไม่มีใครเห็นชื่อคุณ เห็นแค่คณะ</p>
       </div>
     </div>

@@ -15,7 +15,7 @@ router.post('/', protect, async (req, res) => {
       return res.status(400).json({ message: 'กรุณาเลือกอารมณ์และใส่ข้อความ' });
     }
 
-    // สร้าง Mood โดยดึง faculty และ major มาจาก Token ของ User ที่ Login อยู่ (Anonymous identity)
+    // สร้าง Mood โดยดึง faculty มาจาก Token ของ User ที่ Login อยู่ (Anonymous identity)
     const newMood = new Mood({
       user: req.user.id,
       moodType,
@@ -35,12 +35,11 @@ router.post('/', protect, async (req, res) => {
 // ==========================================
 router.get('/', async (req, res) => {
   try {
-    const { faculty, major, moodType, page = 1, limit = 10 } = req.query;
+    const { faculty, moodType, page = 1, limit = 10 } = req.query;
 
     // สร้าง Query Object สำหรับ Filter
     let query = {};
     if (faculty) query.faculty = faculty;
-    if (major) query.major = major;
     if (moodType) query.moodType = moodType;
 
     // คำนวณการแบ่งหน้า (Pagination)

@@ -7,7 +7,7 @@ const User = require('../models/User');
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
   try {
-    const { studentId, password, faculty, year } = req.body;
+    const { studentId, password, faculty, year, avatar } = req.body;
 
     if (!studentId || !password) {
       return res.status(400).json({ success: false, message: 'กรุณากรอกข้อมูลให้ครบถ้วน' });
@@ -26,7 +26,8 @@ router.post('/register', async (req, res) => {
       studentId,
       password: hashedPassword,
       faculty,
-      year: Number(year)
+      year: Number(year),
+      avatar: avatar || 'sunflower'
     });
 
     await newUser.save();
@@ -78,7 +79,8 @@ router.post('/login', async (req, res) => {
         studentId: user.studentId,
         faculty: user.faculty,
         year: user.year,
-        role: user.role
+        role: user.role,
+        avatar: user.avatar
       }
     });
   } catch (error) {

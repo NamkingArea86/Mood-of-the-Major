@@ -9,7 +9,7 @@ router.post('/register', async (req, res) => {
   try {
     const { studentId, password, faculty, year, avatar } = req.body;
 
-    if (!studentId || !password || !faculty || !year) {
+    if (!studentId || !password) {
       return res.status(400).json({ success: false, message: 'กรุณากรอกข้อมูลให้ครบถ้วน' });
     }
 
